@@ -96,7 +96,7 @@ public class frmCliente {
 		JTextArea txtrDireccin = new JTextArea();
 		txtrDireccin.setWrapStyleWord(true);
 		txtrDireccin.setRows(4);
-		txtrDireccin.setText("Direccion");
+		txtrDireccin.setText("Direccion ");
 		txtrDireccin.setBounds(142, 113, 272, 38);
 		frame.getContentPane().add(txtrDireccin);
 		
