@@ -17,7 +17,7 @@ public class Personal {
 	}
 	
 	public Personal(int idPersonal, String nombres, String apellidos,
-			String c√odigo, String direccion, String municipio,
+			String codigo, String direccion, String municipio,
 			String departamento, String telefono, String celular,
 			String correo, String notas) {
 		
