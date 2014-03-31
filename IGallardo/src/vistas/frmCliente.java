@@ -65,7 +65,7 @@ public class frmCliente {
 		
 		txtCodigo = new JTextField();
 		txtCodigo.setText("Codigo");
-		txtCodigo.setBounds(142, 24, 114, 19);
+		txtCodigo.setBounds(189, 24, 114, 19);
 		frame.getContentPane().add(txtCodigo);
 		txtCodigo.setColumns(10);
 		
@@ -116,7 +116,7 @@ public class frmCliente {
 		
 		txtDepartamento = new JTextField();
 		txtDepartamento.setText("Departamento");
-		txtDepartamento.setBounds(142, 191, 114, 19);
+		txtDepartamento.setBounds(167, 190, 114, 19);
 		frame.getContentPane().add(txtDepartamento);
 		txtDepartamento.setColumns(10);
 		
