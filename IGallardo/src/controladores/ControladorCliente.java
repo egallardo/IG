@@ -10,14 +10,14 @@ import dao.DAOClientes;
 import entidades.Cliente;
 import entidades.Filtro;
 
-public class controladorCliente extends DefaultTableModel {
+public class ControladorCliente extends DefaultTableModel {
 	private int numreg = 0;
 	private String data[][];
 	private IDAOClientes daoclientes = new DAOClientes();
 	private ArrayList listaClientes;
 	private Filtro filtro = new Filtro(false, false, "", "");
 	
-	public controladorCliente(){
+	public ControladorCliente(){
 		super();
 		data=getRows();
 		setDataVector(data,getCols());
