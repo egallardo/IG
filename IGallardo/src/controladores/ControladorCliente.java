@@ -43,7 +43,7 @@ public class ControladorCliente extends DefaultTableModel {
 				data[fila][7] = cl.getCelular();
 				data[fila][8] = cl.getCorreo();
 				data[fila][9] = cl.getNotas();
-				data[fila][10] = Boolean.toString(cl.getActivo());
+				//data[fila][10] = Boolean.toString(cl.getActivo());
 			} 
 		} catch (Exception e){
 			System.out.println(e.getMessage());
@@ -52,7 +52,7 @@ public class ControladorCliente extends DefaultTableModel {
 		}
 	
 	public String[] getCols(){
-		String[] Encabezados={new String("Codigo"), new String("Nombres"), new String("Apellidos"), new String("Direccion"), new String("Municipio"), new String("Departamento"), new String("Telofono"), new String("Celular"), new String("Correo"), new String("Notas"), new String("Estado")};
+		String[] Encabezados={new String("Codigo"), new String("Nombres"), new String("Apellidos"), new String("Direccion"), new String("Municipio"), new String("Departamento"), new String("Telofono"), new String("Celular"), new String("Correo"), new String("Notas")};
 		return Encabezados;
 	}
 	public boolean isCellEditable(int row, int column){

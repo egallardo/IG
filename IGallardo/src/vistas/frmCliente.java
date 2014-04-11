@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
@@ -18,9 +19,13 @@ import entidades.Filtro;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTable;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JPanel;
 
 public class frmCliente {
 	
@@ -30,14 +35,12 @@ public class frmCliente {
 	private JTextField txtCodigo;
 	private JTextField txtNombres;
 	private JTextField txtApellidos;
-	private JTextArea txtrDireccion; 
 	private JTextField txtMunicipio;
 	private JTextField txtDepartamento;
 	private JTextField txtTelefono;
 	private JTextField txtCelular;
 	private JTextField txtCorreo;
 	private JTextField txtEstado;
-	private JTable tableCliente;
 
 	/**
 	 * Launch the application.
@@ -54,6 +57,11 @@ public class frmCliente {
 			}
 		});
 	}
+	
+	public static void infoBox(String infoMessage, String location)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + location, JOptionPane.INFORMATION_MESSAGE);
+    }
 
 	/**
 	 * Create the application.
@@ -64,7 +72,6 @@ public class frmCliente {
         controlador = new ControladorCliente();
         Filtro filtro = new Filtro(false,false,"","");
         controlador.setFiltro(filtro);
-        tableCliente.setModel(controlador);
 	}
 
 	/**
@@ -175,31 +182,18 @@ public class frmCliente {
 		final JTextArea txtrNotas = new JTextArea();
 		txtrNotas.setBounds(142, 329, 272, 62);
 		frame.getContentPane().add(txtrNotas);
-		
-	    tableCliente.setModel(new javax.swing.table.DefaultTableModel(
-	               new Object [][] {
-	                   {null, null, null, null},
-	                   {null, null, null, null},
-	                   {null, null, null, null},
-	                   {null, null, null, null}
-	               },
-	               new String [] {
-	                   "Title 1", "Title 2", "Title 3", "Title 4"
-	               }
-	           ));
-		
+
 		JButton btnIngresar = new JButton("Grabar");
+		
 
-		btnIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-            	btnIngresarMouseClicked(evt);
 
-            }
 
-			private void btnIngresarMouseClicked(MouseEvent evt) {
-				// TODO Auto-generated method stub
+		btnIngresar.addActionListener(new ActionListener() {
+			
+			   public void actionPerformed(ActionEvent e) {
+				
 				Cliente cl = new Cliente();
-		        cl.setIdCliente(Integer.parseInt(txtCodigo.getText().trim()));
+		        //cl.setIdCliente(Integer.parseInt(txtCodigo.getText().trim()));
 		        cl.setNombres(txtNombres.getText().trim());
 		        cl.setApellidos(txtApellidos.getText().trim());
 		        cl.setDireccion(txtrDireccion.getText().trim());
@@ -210,13 +204,16 @@ public class frmCliente {
 		        cl.setCorreo(txtCorreo.getText().trim());
 		        cl.setNotas(txtrNotas.getText().trim());
 		        
-		        System.out.println("working");
-		        
+		      	try{
 		        controlador.agregarCliente(cl);
-		        controlador = new ControladorCliente();
-		        tableCliente.setModel(controlador);
-				
-			}
+		        //controlador = new ControladorCliente();
+		        //tableCliente.setModel(controlador);
+		        infoBox("Cliente ingresado con exito!", "Exito");
+		      	}catch(Exception ex){
+		      		System.out.println(ex.getMessage());
+		      	}
+            }
+			
         });
 		
 		
@@ -230,23 +227,15 @@ public class frmCliente {
 		
 		JButton btnSalir = new JButton("Salir");
 
-		btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                //jbtnCerrarMouseClicked(evt);
-            	btnCerrarMouseClicked(evt);
-            }
+		btnSalir.addActionListener(new ActionListener() {
+			
+			   public void actionPerformed(ActionEvent e) {
 
-			private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {
-				// TODO Auto-generated method stub
 				System.exit(0);
 			}
         });
 
 		btnSalir.setBounds(316, 413, 98, 25);
 		frame.getContentPane().add(btnSalir);
-		
-		tableCliente = new JTable();
-		tableCliente.setBounds(12, 12, 1, 1);
-		frame.getContentPane().add(tableCliente);
 	}
 }

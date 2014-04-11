@@ -21,7 +21,7 @@ public class Cliente implements Serializable {
 	private String celular;
 	private String correo;
 	private String notas;
-	private Boolean activo;
+
 	
 	public Cliente(){
 	
@@ -29,8 +29,8 @@ public class Cliente implements Serializable {
 
 	public Cliente(int idCliente, String nombres, String apellidos,
 			String direccion, String municipio, String departamento,
-			String telefono, String celular, String correo, String notas,
-			Boolean activo) {
+			String telefono, String celular, String correo, String notas
+			) {
 		this.idCliente = idCliente;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
@@ -41,7 +41,7 @@ public class Cliente implements Serializable {
 		this.celular = celular;
 		this.correo = correo;
 		this.notas = notas;
-		this.activo = activo;
+
 	}
 
 	public int getIdCliente() {
@@ -122,14 +122,6 @@ public class Cliente implements Serializable {
 
 	public void setNotas(String notas) {
 		this.notas = notas;
-	}
-
-	public Boolean getActivo() {
-		return activo;
-	}
-
-	public void setActivo(Boolean activo) {
-		this.activo = activo;
 	}
 
 	

@@ -22,7 +22,7 @@ public class DAOClientes implements IDAOClientes {
 	public void conectarse() {
 		try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/igallardo?user=root&password=10984raul");
+			cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/IGallardo?user=root&password=10984raul");
 		} catch (Exception e){
 			System.out.println(e.toString());
 		}
@@ -46,7 +46,8 @@ public class DAOClientes implements IDAOClientes {
 		int x = 0;
 		try{
 			st = this.cn.prepareStatement
-					("Insert into Cliente(nombres, apellidos, direccion, municipio, departamento, telefono, celular, correo, notas, activo) values (?,?,?,?,?,?,?,?,?,?)");
+					("Insert into Cliente(nombres, apellidos, direccion, municipio, departamento, telefono, celular, correo, notas) values (?,?,?,?,?,?,?,?,?)");
+			
 			st.setString(1, cliente.getNombres());
 			st.setString(2, cliente.getApellidos());
 			st.setString(3, cliente.getDireccion());
@@ -56,8 +57,9 @@ public class DAOClientes implements IDAOClientes {
 			st.setString(7, cliente.getCelular());
 			st.setString(8, cliente.getCorreo());
 			st.setString(9, cliente.getNotas());
-			st.setBoolean(10, cliente.getActivo());
+			//st.setBoolean(10, cliente.getActivo());
 			
+			x = st.executeUpdate();
 		} catch(Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -92,7 +94,7 @@ public class DAOClientes implements IDAOClientes {
 			Statement st;
 			ResultSet rs;
 			st = this.cn.createStatement();
-			String sSql="Select idCliente, nombres, apellidos, direccion, municipio, departamento, telefono, celular, correo, notas, activo from cliente";
+			String sSql="Select idCliente, nombres, apellidos, direccion, municipio, departamento, telefono, celular, correo, notas from Cliente";
 			String sSqlFiltro="";
 			if (filtro.isBfiltro1()==true & filtro.isBfiltro2()==false){
 				sSqlFiltro= " where nombres = '" + filtro.getValor1() + "'";
@@ -104,7 +106,7 @@ public class DAOClientes implements IDAOClientes {
 			sSql += sSqlFiltro;
 			rs = st.executeQuery(sSql);
 			while(rs.next()){
-				cl = new Cliente(rs.getInt("idCliente"), rs.getString("nombres"), rs.getString("apellidos"), rs.getString("direccion"), rs.getString("municipio"), rs.getString("departamento"), rs.getString("telefono"), rs.getString("celular"), rs.getString("correo"), rs.getString("notas"), rs.getBoolean("activo"));
+				cl = new Cliente(rs.getInt("idCliente"), rs.getString("nombres"), rs.getString("apellidos"), rs.getString("direccion"), rs.getString("municipio"), rs.getString("departamento"), rs.getString("telefono"), rs.getString("celular"), rs.getString("correo"), rs.getString("notas"));
 				listaClientes.add(cl);
 			}
 			rs.close();
