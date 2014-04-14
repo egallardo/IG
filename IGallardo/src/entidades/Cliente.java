@@ -14,6 +14,9 @@ public class Cliente implements Serializable {
 	private int idCliente;
 	private String nombres;
 	private String apellidos;
+	private String empresa;
+	private String dui;
+	private String nit;
 	private String direccion;
 	private String municipio;
 	private String departamento;
@@ -21,19 +24,24 @@ public class Cliente implements Serializable {
 	private String celular;
 	private String correo;
 	private String notas;
-
+	private int idMunicipioXDepartamento;
 	
 	public Cliente(){
 	
 	}
 
 	public Cliente(int idCliente, String nombres, String apellidos,
+			String empresa, String dui, String nit,
 			String direccion, String municipio, String departamento,
-			String telefono, String celular, String correo, String notas
+			String telefono, String celular, String correo, String notas,
+			int idMunicipioXDepartamento
 			) {
 		this.idCliente = idCliente;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
+		this.empresa = empresa;
+		this.dui = dui;
+		this.nit = nit;
 		this.direccion = direccion;
 		this.municipio = municipio;
 		this.departamento = departamento;
@@ -41,7 +49,32 @@ public class Cliente implements Serializable {
 		this.celular = celular;
 		this.correo = correo;
 		this.notas = notas;
+		this.idMunicipioXDepartamento = idMunicipioXDepartamento;
 
+	}
+
+	public String getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
+	}
+
+	public String getDui() {
+		return dui;
+	}
+
+	public void setDui(String dui) {
+		this.dui = dui;
+	}
+
+	public String getNit() {
+		return nit;
+	}
+
+	public void setNit(String nit) {
+		this.nit = nit;
 	}
 
 	public int getIdCliente() {
@@ -122,6 +155,14 @@ public class Cliente implements Serializable {
 
 	public void setNotas(String notas) {
 		this.notas = notas;
+	}
+
+	public int getIdMunicipioXDepartamento() {
+		return idMunicipioXDepartamento;
+	}
+
+	public void setIdMunicipioXDepartamento(int idMunicipioXDepartamento) {
+		this.idMunicipioXDepartamento = idMunicipioXDepartamento;
 	}
 
 	
