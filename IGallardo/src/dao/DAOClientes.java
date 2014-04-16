@@ -17,7 +17,7 @@ import interfaces.IDAOClientes;
 
 public class DAOClientes implements IDAOClientes {
 	private Connection cn;
-	
+
 	public DAOClientes(){
 		conectarse();
 	}
@@ -30,7 +30,7 @@ public class DAOClientes implements IDAOClientes {
 		} catch (Exception e){
 			System.out.println(e.toString());
 		}
-		
+
 	}
 
 	@Override
@@ -38,20 +38,20 @@ public class DAOClientes implements IDAOClientes {
 		try{
 			this.cn.close();
 		} catch(Exception e){
-			
+
 		}
-		
+
 	}
 
 	@Override
 	public void insertarCliente(Cliente cliente) {
 		PreparedStatement st;
-		
+
 		int x = 0;
 		try{
 			st = this.cn.prepareStatement
 					("Insert into Cliente(nombres, apellidos, direccion, empresa, dui, nit, municipio, departamento, telefono, celular, correo, notas) values (?,?,?,?,?,?,?,?,?,?,?,?)");
-			
+
 			st.setString(1, cliente.getNombres());
 			st.setString(2, cliente.getApellidos());
 			st.setString(3, cliente.getEmpresa());
@@ -65,32 +65,55 @@ public class DAOClientes implements IDAOClientes {
 			st.setString(11, cliente.getCorreo());
 			st.setString(12, cliente.getNotas());
 			//st.setBoolean(10, cliente.getActivo());
-			
+
 			x = st.executeUpdate();
 		} catch(Exception e){
 			System.out.println(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
 	public void modificarCliente(Cliente cliente) {
 		// TODO Auto-generated method stub
-		
+		PreparedStatement st;
+
+		int x = 0;
+		try{
+			st = this.cn.prepareStatement
+					("Update Cliente set nombres=?, apellidos=?, direccion=?, empresa=?, dui=?, nit=?, municipio=?, departamento=?, telefono=?, celular=?, correo=?, notas=? where idCliente=?");
+			st.setString(1, cliente.getNombres());
+			st.setString(2, cliente.getApellidos());
+			st.setString(3, cliente.getDireccion());
+			st.setString(4, cliente.getEmpresa());
+			st.setString(5, cliente.getDui());
+			st.setString(6, cliente.getNit());
+			st.setString(7, cliente.getMunicipio());
+			st.setString(8, cliente.getDepartamento());
+			st.setString(9, cliente.getTelefono());
+			st.setString(10, cliente.getCelular());
+			st.setString(11, cliente.getCorreo());
+			st.setString(12, cliente.getNotas());
+			st.setString(13, Integer.toString(cliente.getIdCliente()));
+			x = st.executeUpdate();
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
+
 
 	@Override
 	public void eliminarCliente(Cliente cliente) {
-	    PreparedStatement st;
-        int x=0;
-        try{
-            st = this.cn.prepareStatement("Delete from Cliente where idCliente=?");
-            st.setString(1, Integer.toString(cliente.getIdCliente()));
-            x = st.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-		
+		PreparedStatement st;
+		int x=0;
+		try{
+			st = this.cn.prepareStatement("Delete from Cliente where idCliente=?");
+			st.setString(1, Integer.toString(cliente.getIdCliente()));
+			x = st.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 
 	@Override
@@ -110,12 +133,12 @@ public class DAOClientes implements IDAOClientes {
 				sSqlFiltro= " where apellidos = '" + filtro.getValor2() + "'";
 			}else if (filtro.isBfiltro1()==true & filtro.isBfiltro2()==true){
 				sSqlFiltro= " where nombres = '" + filtro.getValor1() + "' and apellidos '" + filtro.getValor2() + "'";		
-			*/
+				 */
 			}
 			sSql += sSqlFiltro;
 			rs = st.executeQuery(sSql);
 			while(rs.next()){
-				cl = new Cliente(rs.getInt("idCliente"), rs.getString("nombres"), rs.getString("apellidos"), rs.getString("empresa"), rs.getString("dui"), rs.getString("nit"), rs.getString("direccion"), rs.getString("municipio"), rs.getString("departamento"), rs.getString("telefono"), rs.getString("celular"), rs.getString("correo"), rs.getString("notas"), rs.getInt("idMunicipiosXDepartamento"));
+				cl = new Cliente(rs.getInt("idCliente"), rs.getString("nombres"), rs.getString("apellidos"), rs.getString("empresa"), rs.getString("dui"), rs.getString("nit"), rs.getString("direccion"), rs.getString("municipio"), rs.getString("departamento"), rs.getString("telefono"), rs.getString("celular"), rs.getString("correo"), rs.getString("notas"));
 				listaClientes.add(cl);
 			}
 			rs.close();
@@ -128,20 +151,20 @@ public class DAOClientes implements IDAOClientes {
 
 	@Override
 	public int conteoClientes() {
-        int x=0;
-        try{
-            Statement st;
-            ResultSet rs;
-            st = this.cn.createStatement();
-            rs = st.executeQuery("Select count(*) num from cliente");
-            while(rs.next()){
-            x = rs.getInt("num");
-            }
-            rs.close();
-            rs = null;
-        } catch (Exception e) {
-        }
-        return x;
+		int x=0;
+		try{
+			Statement st;
+			ResultSet rs;
+			st = this.cn.createStatement();
+			rs = st.executeQuery("Select count(*) num from cliente");
+			while(rs.next()){
+				x = rs.getInt("num");
+			}
+			rs.close();
+			rs = null;
+		} catch (Exception e) {
+		}
+		return x;
 	}
 
 	@Override
@@ -161,15 +184,15 @@ public class DAOClientes implements IDAOClientes {
 			rs = st.executeQuery(sSql);
 
 			if (!rs.next()){
-				  System.out.println("Cliente no encontrado");   
+				System.out.println("Cliente no encontrado");   
 			}else {
 				cl = new Cliente(rs.getInt("idCliente"), rs.getString("nombres"), rs.getString("apellidos"), rs.getString("empresa"), 
 						rs.getString("dui"), rs.getString("nit"), rs.getString("direccion"), rs.getString("municipio"), 
 						rs.getString("departamento"), rs.getString("telefono"), rs.getString("celular"), rs.getString("correo"), 
-						rs.getString("notas"), rs.getInt("idMunicipiosXDepartamento"));
+						rs.getString("notas"));
 			}
-			
-			
+
+
 			rs.close();
 			rs = null;
 		} catch (Exception e){
@@ -208,9 +231,9 @@ public class DAOClientes implements IDAOClientes {
 		// TODO Auto-generated method stub
 		DefaultComboBoxModel comboBoxItemList = new DefaultComboBoxModel();
 		//Map<String,DefaultComboBoxModel> map = new HashMap<String,DefaultComboBoxModel>();
-		
+
 		try{
-			
+
 			Statement st;
 			ResultSet rs;
 			st = this.cn.createStatement();
@@ -220,11 +243,11 @@ public class DAOClientes implements IDAOClientes {
 					+ " ON dep.idDepartamento = munxdep.Departamento_idDepartamento"
 					+ " RIGHT JOIN IGallardo.Municipio mun"
 					+ " ON mun.idMunicipio = munxdep.Municipio_idMunicipio";
-			
+
 			String sSqlFiltro="";
 			if (filtro.isBfiltro1()==true & filtro.isBfiltro2()==false){
 				sSqlFiltro= " WHERE munxdep.Departamento_idDepartamento = '" + filtro.getValor1() + "'";
-				
+
 			}
 			sSql += sSqlFiltro;
 			rs = st.executeQuery(sSql);
@@ -233,21 +256,21 @@ public class DAOClientes implements IDAOClientes {
 				String Item = rs.getString("municipio");
 				comboBoxItemList.addElement(Item);
 				//map.put(Key, comboBoxItemList);
-				
+
 			}
-				//}
-			
+			//}
+
 			rs.close();
 			rs = null;
-			
+
 		} catch (Exception e){
 			System.out.println(e.getMessage());
 		}
 		//return map;
 		return comboBoxItemList;
 	}
-	
-	
-	
+
+
+
 
 }

@@ -24,7 +24,6 @@ public class Cliente implements Serializable {
 	private String celular;
 	private String correo;
 	private String notas;
-	private int idMunicipioXDepartamento;
 	
 	public Cliente(){
 	
@@ -33,8 +32,7 @@ public class Cliente implements Serializable {
 	public Cliente(int idCliente, String nombres, String apellidos,
 			String empresa, String dui, String nit,
 			String direccion, String municipio, String departamento,
-			String telefono, String celular, String correo, String notas,
-			int idMunicipioXDepartamento
+			String telefono, String celular, String correo, String notas
 			) {
 		this.idCliente = idCliente;
 		this.nombres = nombres;
@@ -49,7 +47,6 @@ public class Cliente implements Serializable {
 		this.celular = celular;
 		this.correo = correo;
 		this.notas = notas;
-		this.idMunicipioXDepartamento = idMunicipioXDepartamento;
 
 	}
 
@@ -157,13 +154,6 @@ public class Cliente implements Serializable {
 		this.notas = notas;
 	}
 
-	public int getIdMunicipioXDepartamento() {
-		return idMunicipioXDepartamento;
-	}
-
-	public void setIdMunicipioXDepartamento(int idMunicipioXDepartamento) {
-		this.idMunicipioXDepartamento = idMunicipioXDepartamento;
-	}
 
 	
 }
